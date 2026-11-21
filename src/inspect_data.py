@@ -44,3 +44,15 @@ print(f"Correlation between alcohol content and quality: {correlation_alcohol_qu
 correlations = df.corr(numeric_only=True)["quality"]
 top_3_correlations = correlations.drop("quality").sort_values(ascending=False).head(3)
 print(f"Top 3 correlations with quality:\n{top_3_correlations}")
+
+# J. Display the total rows in the dataset
+total_rows = len(df)
+print(f"Total rows in the dataset: {total_rows}")
+
+# K. Display the duplicate rows 
+duplicate_rows = df.duplicated().sum()
+print(f"Duplicate rows in the dataset: {duplicate_rows}")
+
+# L. Display the rate of duplicate rows
+duplicate_percentage = duplicate_rows / total_rows * 100
+print(f"Rate of duplicate rows: {duplicate_percentage:.2f}%")

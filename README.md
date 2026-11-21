@@ -59,6 +59,22 @@ The three features with the highest positive correlations to quality were:
 
 Alcohol showed a moderate positive linear correlation with wine quality. However, correlation does not imply causation.
 
+### 4. Duplicate Analysis
+
+Checked the dataset for duplicate observations using pandas `duplicated()`.
+
+The analysis produced the following results:
+
+| Metric | Value |
+|---|---:|
+| Total Observations | 1,599 |
+| Duplicate Observations | 240 |
+| Duplicate Rate | 15.01% |
+
+Approximately 15.01% of the dataset consists of duplicate observations.
+
+However, duplicate observations do not necessarily indicate data errors, as different wine samples may share identical physicochemical measurements and quality scores.
+
 ## Project Progress
 
 - [x] Project setup and data loading
