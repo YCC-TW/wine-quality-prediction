@@ -6,7 +6,7 @@ This project aims to analyze red wine quality using Python and machine learning.
 
 The project focuses on exploratory data analysis (EDA), feature relationships, predictive modeling, and model evaluation.
 
-**Current Status:** Exploratory Data Analysis (In Progress)
+**Current Status:** Baseline Model Completed — Predictive Modeling and Evaluation in Progress
 
 ## Dataset
 
@@ -75,6 +75,43 @@ Approximately 15.01% of the dataset consists of duplicate observations.
 
 However, duplicate observations do not necessarily indicate data errors, as different wine samples may share identical physicochemical measurements and quality scores.
 
+## Data Preprocessing
+
+The original dataset contains 1,599 observations, including 240 exact duplicate rows. After removing these duplicates and resetting the index, 1,359 observations remain.
+
+Exact duplicate rows were removed before the train/test split to mitigate the risk of data leakage, as it is unclear whether identical observations represent independent wine samples or repeated records of the same sample.
+
+## Baseline Model
+
+Wine quality prediction is formulated as a multiclass classification problem with six quality classes ranging from 3 to 8.
+
+A `DummyClassifier` with the `most_frequent` strategy was selected as the baseline model. This classifier predicts the most frequent class in the training set without learning relationships between the input features and the target variable.
+
+The dataset was divided into training and testing sets using an 80/20 split, with `random_state=42` for reproducibility and `stratify=y` to preserve the approximate class distribution across both sets.
+
+## Baseline Results
+
+| Metric | Result |
+|---|---:|
+| Training Samples | 1,087 |
+| Testing Samples | 272 |
+| Predicted Class | Quality 5 |
+| Correct Predictions | 116 |
+| Incorrect Predictions | 156 |
+| Baseline Accuracy | 42.65% |
+
+The baseline model predicted Quality 5 for all 272 test samples because it was the most frequent class in the training set.
+
+Since 116 of the 272 test samples belong to Quality 5, the resulting accuracy is approximately 42.65%. This result establishes an initial performance benchmark for evaluating future predictive models.
+
+## Limitations
+
+- **Class Imbalance:** Approximately 81.82% of the cleaned dataset consists of samples with quality scores of 5 or 6. This imbalance may make it difficult for predictive models to identify minority classes effectively.
+
+- **Duplicate Removal:** Exact duplicate rows do not necessarily represent erroneous or repeated records. Different wine samples may have identical physicochemical measurements and quality scores. Removing these observations may reduce the amount of useful training data and affect the representativeness of the dataset.
+
+- **Evaluation Metrics:** Accuracy alone may not adequately reflect model performance, particularly when the dataset is imbalanced. Additional evaluation metrics, including precision, recall, F1-score, and confusion matrices, will be considered in future model comparisons.
+
 ## Project Progress
 
 - [x] Project setup and data loading
@@ -83,11 +120,17 @@ However, duplicate observations do not necessarily indicate data errors, as diff
 - [x] Basic descriptive statistics
 - [x] Target distribution analysis
 - [x] Initial correlation analysis
+- [x] Duplicate analysis
+- [x] Data preprocessing
+- [x] Stratified train/test split
+- [x] Baseline model implementation
+- [x] Baseline model evaluation
 - [ ] Data visualization
-- [ ] Duplicate and outlier analysis
-- [ ] Train/test split
-- [ ] Baseline model
-- [ ] Model evaluation
+- [ ] Outlier analysis
+- [ ] Predictive model implementation
+- [ ] Model comparison
+- [ ] Advanced evaluation metrics
+- [ ] Error analysis
 - [ ] Final results and conclusions
 
 ## How to Run
@@ -95,13 +138,25 @@ However, duplicate observations do not necessarily indicate data errors, as diff
 Install the required dependencies:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
-Place `winequality-red.csv` inside the `data/` directory, then run:
+Place `winequality-red.csv` inside the `data/` directory.
+
+### Exploratory Data Analysis
+
+Run the following command to inspect the dataset and perform initial exploratory data analysis:
 
 ```bash
 python src/inspect_data.py
+```
+
+### Baseline Model
+
+Run the following command to perform data preprocessing, split the dataset, train the baseline classifier, and evaluate its accuracy:
+
+```bash
+python src/train_baseline.py
 ```
 
 ## References
